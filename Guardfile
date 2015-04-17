@@ -20,14 +20,14 @@ guard :rspec, cmd: "bundle exec rspec" do
   dsl.watch_spec_files_for(rails.app_files)
   dsl.watch_spec_files_for(rails.views)
 
-  watch(rails.controllers) { puts "saw a change in a controller" }
+  # watch(rails.controllers) { "rspec --pattern features/*_spec.rb" }
 
   watch(rails.controllers) do |m|
     [
+      "spec/features",
       rspec.spec.("routing/#{m[1]}_routing"),
       rspec.spec.("controllers/#{m[1]}_controller"),
-      rspec.spec.("acceptance/#{m[1]}"),
-      rspec.spec.("features/*"),
+      rspec.spec.("acceptance/#{m[1]}")
     ]
   end
 
