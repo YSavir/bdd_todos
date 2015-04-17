@@ -33,10 +33,9 @@ group :development, :test do
 end
 
 group :test do
-  gem 'spork'
+  gem 'spork', '~> 1.0rc'
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
-  gem 'guard'
-  gem 'guard-rails'
+  gem 'guard-rspec'
   gem 'guard-spork'
   gem 'capybara'
   gem 'factory_girl_rails'
