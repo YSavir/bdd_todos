@@ -17,6 +17,8 @@ Spork.prefork do
       mocks.verify_partial_doubles = true
     end
 
+    config.include FactoryGirl::Syntax::Methods
+
   end
 end
 

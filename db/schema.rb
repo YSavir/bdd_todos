@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20150417201622) do
 
   create_table "todos", force: true do |t|
     t.string   "title"
+    t.boolean  "complete",   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
