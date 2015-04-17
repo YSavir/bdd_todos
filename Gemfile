@@ -27,16 +27,20 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-bloodline'
   gem 'rspec-rails'
+end
+
+group :test do
   gem 'spork'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard'
   gem 'guard-rails'
   gem 'guard-spork'
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'shoulda'
-  gem 'pry-rails'
-  gem 'pry-bloodline'
 end
 
 # Use ActiveModel has_secure_password
