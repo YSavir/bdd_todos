@@ -6,8 +6,11 @@ RSpec.feature "AddNewTodos", type: :feature do
       visit todos_path
       fill_in 'todo_title', :with => 'Test Todo'
       click_button 'Add Todo'
-
-      expect(response).to be_success
+      todo = Todo.last
+      puts "todo is: ", todo
+      
+      expect(current_path).to be(todo_path(todo))
+      expect(page).to have_content('Test Todo')
     end
   end
 end
