@@ -3,7 +3,6 @@
   <%= f.text_field :title %>
   <%= f.submit :value => 'Add Todo' %>
 <% end %>
-
 <% @todos.each do |todo| %>
   <div class="todo <%= todo.complete? ? 'complete' : 'incomplete' %>"></div>
 <% end %>

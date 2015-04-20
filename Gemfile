@@ -30,6 +30,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-bloodline'
   gem 'rspec-rails'
+  gem 'rspec-collection_matchers'
 end
 
 group :test do
