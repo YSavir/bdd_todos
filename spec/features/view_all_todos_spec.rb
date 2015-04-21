@@ -56,12 +56,17 @@ RSpec.feature "ViewAllTodos", type: :feature do
       it { should contain(3).incomplete_todos }
 
       context 'and I click to complete an incomplete todo' do
-        before do
-          page.first('.complete-button').click
-        end
+        before { page.first('.complete-button').click }
         specify { expect(page.current_path).to eq(todos_path) }
         it { should contain(5).complete_todos }
         it { should contain(2).incomplete_todos }
+      end
+
+      context 'and I click to uncomplete a complete todo' do
+        before { page.first('.uncomplete-button').click }
+        specify { expect(page.current_path).to eq(todos_path) }
+        it { should contain(3).complete_todos }
+        it { should contain(4).incomplete_todos }
       end
     end
   
