@@ -1,18 +1,27 @@
 require 'rails_helper'
 
-RSpec::Matchers.define :have_complete_todos do |expected|
+RSpec::Matchers.define :contain do |expected|
   match do |actual|
-    actual.select do |el|
-      el['class'].match(/\scomplete/)
-    end.length == expected 
+    @actual_todos.length == expected
   end
-end
+  chain :complete_todos do
+    @type = 'complete'
+    @actual_todos = subject.select do |el|
+      el['class'].match(/(\s|^)complete/)
+    end
+  end
 
-RSpec::Matchers.define :have_incomplete_todos do |expect|
-  match do |actual|
-    actual.select do |el|
-      el['class'].match(/\sincomplete/)
-    end.length == expected
+  chain :incomplete_todos do
+    @type = 'incomplete'
+    @actual_todos = subject.select do |el|
+      el['class'].match(/(\s|^)incomplete/)
+    end
+  end
+  failure_message do |actual|
+    "expected to find #{expected} #{@type} todos but found #{@actual_todos.length} #{@type} todos instead"
+  end
+  description do
+    "have #{expected} complete todos"
   end
 end
 
@@ -43,8 +52,17 @@ RSpec.feature "ViewAllTodos", type: :feature do
       before { visit todos_path }
       
       it { should have_exactly(7).todos }
-      it { should have_complete_todos(4) }
-      it { should have_incomplete_todos(3) }
+      it { should contain(4).complete_todos }
+      it { should contain(3).incomplete_todos }
+
+      context 'and I click to complete an incomplete todo' do
+        before do
+          page.first('.complete-button').click
+        end
+        specify { expect(page.current_path).to eq(todos_path) }
+        it { should contain(5).complete_todos }
+        it { should contain(2).incomplete_todos }
+      end
     end
   
   end

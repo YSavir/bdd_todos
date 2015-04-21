@@ -19,7 +19,7 @@ class TodosController < ApplicationController
     todo = Todo.find(params[:id])
     todo.toggle_completeness
 
-    redirect_to todo_path(todo)
+    redirect_to :back
   end
 
   private

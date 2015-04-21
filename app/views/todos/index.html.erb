@@ -4,5 +4,11 @@
   <%= f.submit :value => 'Add Todo' %>
 <% end %>
 <% @todos.each do |todo| %>
-  <div class="todo <%= todo.complete? ? 'complete' : 'incomplete' %>"></div>
+  <div class="todo <%= todo.complete? ? 'complete' : 'incomplete' %>">
+    <% if !todo.complete?  %>
+      <%= form_tag toggle_todo_completeness_path(todo), :method => 'PATCH' do %>
+        <%= submit_tag('Complete Todo', :class => 'complete-button') %>
+      <% end %>
+    <% end  %>
+  </div>
 <% end %>
