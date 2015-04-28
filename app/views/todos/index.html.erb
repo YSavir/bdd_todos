@@ -12,5 +12,6 @@
         <%= submit_tag('Uncomplete Todo', :class => 'uncomplete-button') %>
       <% end %>
     <% end  %>
+    <%= link_to('Edit', edit_todo_path(todo), :class => 'edit-todo-button') %>
   </div>
 <% end %>

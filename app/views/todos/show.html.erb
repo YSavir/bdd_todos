@@ -1,8 +1,10 @@
 <h1><%= @todo.title %></h1>
 <% if @todo.complete? %>
-  <p>Todo Complete!</p>
+  <p>Todo complete!</p>
 <% else %>
+  <p>Todo incomplete</p>
   <%= form_tag toggle_todo_completeness_path(@todo), :method => 'PATCH' do %>
     <%= submit_tag('Complete Todo') %>
   <% end %>
 <% end %>
+<%= link_to 'Edit', edit_todo_path(@todo) %>

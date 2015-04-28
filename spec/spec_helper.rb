@@ -1,10 +1,8 @@
+### ENV ####
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rubygems'
 require 'spork'
-#uncomment the following line to use spork with the debugger
-#require 'spork/ext/ruby-debug'
 
 Spork.prefork do
   RSpec.configure do |config|
@@ -17,7 +15,13 @@ Spork.prefork do
       mocks.verify_partial_doubles = true
     end
 
+    ### MATCHERS AND HELPERS ###
     config.include FactoryGirl::Syntax::Methods
+    # config.include Capybara::DSL
+    # reinclude rspec matchers to override override Capybara `#all` method
+    config.include RSpec::Matchers.clone
+    Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+
 
   end
 end
@@ -25,4 +29,5 @@ end
 Spork.each_run do
 
 end
+
 
