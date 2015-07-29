@@ -15,6 +15,22 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
   end
 
+  def edit
+    @todo = Todo.find(params[:id]) 
+  end
+  
+  def update
+    todo = Todo.find(params[:id])
+    todo.update(todo_params)
+
+    redirect_to todo_path(todo)  
+  end
+
+  def destroy
+    Todo.destroy params[:id]
+    redirect_to todos_path
+  end
+
   def toggle_completeness
     todo = Todo.find(params[:id])
     todo.toggle_completeness

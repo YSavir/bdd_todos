@@ -8,3 +8,6 @@
   <% end %>
 <% end %>
 <%= link_to 'Edit', edit_todo_path(@todo) %>
+<%= form_tag "/todos/#{@todo.id}", :method => 'DELETE' do %>
+  <%= submit_tag 'Delete Todo' %>  
+<% end %>

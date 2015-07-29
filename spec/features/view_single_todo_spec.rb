@@ -10,18 +10,25 @@ RSpec.feature "ViewSingleTodo", type: :feature do
       subject { page }
 
       # General page properties, not specific to incomplete todos
-      it { should have_content todo.title }
-      it { should have_link 'Edit', :href => edit_todo_path(todo) }
+      it { is_expected.to have_content todo.title }
+      it { is_expected.to have_link 'Edit', :href => edit_todo_path(todo) }
 
+      feature 'and deletes the todo' do
+        before { click_button 'Delete Todo' }
+
+        specify { expect(current_path).to eq todos_path }        
+        it { is_expected.to have_no_link 'Edit', :href => edit_todo_path(todo) }
+      end
+      
       # Page properties specifically for incomplete todos
-      it { should have_content 'Todo incomplete' }
-      it { should have_selector "input[type=submit][value='Complete Todo']" }
+      it { is_expected.to have_content 'Todo incomplete' }
+      it { is_expected.to have_selector "input[type=submit][value='Complete Todo']" }
 
       feature 'and clicks to complete the todo' do
         before { click_button 'Complete Todo' }
 
         specify { expect(current_path).to eq todo_path(todo) }
-        it { should have_content 'Todo complete' }
+        it { is_expected.to have_content 'Todo complete' }
       end
 
     end
@@ -34,8 +41,8 @@ RSpec.feature "ViewSingleTodo", type: :feature do
       before { visit todo_path(todo) }
       subject { page }
       
-      it { should have_content "Todo complete" }
-      it { should have_no_content "Complete Todo" }
+      it { is_expected.to have_content "Todo complete" }
+      it { is_expected.to have_no_content "Complete Todo" }
     end
   end
 
